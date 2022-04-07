@@ -1,0 +1,322 @@
+*,::before,::after{
+    box-sizing: border-box;
+}
+
+span:empty, div:empty{
+  margin: 0;
+  padding: 0;
+}
+
+/*Anmelde-Formular*/
+main{
+  margin: 30px;
+}
+
+fieldset{
+    max-width: 1200px;
+    min-width: 500px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    margin: 10px 2%;
+}
+
+legend{
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+label{
+    font-weight: bolder;
+}
+
+.form-row{
+  display: flex;
+  flex-direction: row;
+}
+
+.form-col{
+  flex-basis: 50%;
+  flex-grow: 0;
+  padding: 0.5rem 1.6rem;
+}
+
+.formular [type=text], .formular [type=date], .formular select{
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  height: 40px;
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+}
+
+textarea{
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+}
+
+.datenschutz{
+  margin: 10px 2%;
+  padding: 20px;
+  max-width: 1200px;
+  min-width: 500px;
+  font-size: 1.2rem;
+}
+
+.submit{
+  margin: 20px 2%;
+  max-width: 1200px;
+  min-width: 500px;
+}
+
+.submit [type=submit] {
+  display: block;
+  width: 100%;
+  height: 40px;
+  /*background-color: #3D6E94;*/
+  background-color: #76B82A;
+  color: white;
+  font-size: 1.2rem;
+  padding: 4px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.formular [type=submit]:hover {
+  background-color: #598a22;
+} 
+
+.error{
+  color: #c00c00;
+  background: #fff1f2;
+  border-radius: 4px;
+  font-weight: bolder;
+  font-size: 0.9em;
+  margin: 10px 0;
+  padding: 5px;
+  text-align: center;
+}
+
+.success {
+  width: 500px;
+  margin: 50px;
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 1.3rem;
+  color: darkgreen;
+  background-color: #eee;
+}
+
+#admin-button{
+  border: 1px solid #444;
+  border-radius: 4px;
+  margin: 20px 10px 20px 20px;
+  padding: 4px 10px;
+  font-size: 0.9rem;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bolder;
+  color: black;
+  background-color: #ddd;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  text-decoration: none;
+}
+
+  /*Login*/
+.login{
+  margin: 10px 50px;
+  font-weight: bold;
+}
+
+.login input{
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  height: 30px;
+  width: 200px;
+  margin: 2px 0px 10px 0px;
+}
+
+#login-error{
+  padding: 7px 10px;
+  background: #fff1f2;
+  border: #ffd5da 1px solid;
+  color: #c00c00;
+  border-radius: 4px;
+  margin: 30px 10px 30px 25px;
+  width: 250px;
+}
+
+
+/*Administrations-Bereich*/
+
+.wrapper{
+  display: flex;
+  justify-content: flex-start;
+  position: absolute;
+  height: 100%;
+}
+
+.message:empty{
+  padding: 0;
+}
+
+.message{
+  color: purple;
+  background-color: #e3e3e3;
+  font-weight: bolder;
+  text-align: center;
+  padding: 5px;
+}
+
+#table{
+  padding-left: 10px;
+}
+
+#table h2{
+  padding-top: 0;
+  margin-top: 0;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+tbody{
+  background-color: #e8e8e8;
+}
+
+td, th{
+  padding: 4px;
+	color: #282828;
+	border: 1px solid #aaa;
+}
+
+tr:nth-child(even) {
+  background-color: #f6f6f6;
+}
+
+#tableHead{
+  background-color: rgb(54, 222, 251);
+  background-color: silver;
+}
+
+#tableHead th{
+  padding-right: 25px;
+  text-align: left;
+  cursor: default;
+  position: relative;
+  white-space: nowrap;
+}
+
+#tableHead th:hover {
+	background-color: rgb(149, 226, 240);
+}
+
+.arrow-up, .arrow-down {
+  width: 0; 
+  height: 0; 
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  position: absolute;
+  right: 6px;
+}
+
+.arrow-up{
+  border-bottom: 5px solid #aaa;
+  top:7px;
+}
+
+.arrow-up.active{
+  border-bottom: 5px solid #333;
+}
+
+.arrow-down{
+  border-top: 5px solid #aaa;
+  bottom: 7px;
+}
+
+ .arrow-down.active{
+  border-top: 5px solid #333;
+}
+
+#userTable{
+  margin-left: 30px;
+}
+
+#tableHeadUser{
+  background-color: silver;
+}
+
+#tableHeadUser th {
+  text-align: left;
+  padding-right: 15px;
+  white-space: nowrap;
+}
+
+#userTable form, #userTable button{
+  margin: 2px 6px;
+}
+
+.addButton{
+  margin-top: 10px;
+  margin-left: 30px;
+  padding: 2px 4px;
+  font-weight: bolder;
+}
+
+/*general*/
+
+.info{
+  font-size: 0.9rem;
+  color: #111;
+  font-style: italic;
+}
+
+nav.admin{
+  height: 100%;
+  width: 210px;
+  background-color: #282828;
+  color: white;
+}
+
+nav.admin .logo{
+  background-color: #282828;
+  padding-bottom: 10px;
+  border-bottom: 1px solid grey;
+}
+
+nav.admin .logo>img{
+  width: 100%;
+}
+
+.admin>button, .admin>form{
+  all: unset;
+  cursor: pointer;
+  display: block;
+  padding: 0 5%;
+  width: 90%;
+  height: 60px;
+  border-bottom: 1px solid grey;
+}
+
+.admin>form>button{
+  all: unset;
+  width: 100%;
+  height: 100%;
+}
+
+#admin-button:hover, .admin>button:hover, .admin>form:hover{
+  background-color: #444;
+}
+
+.download > td {
+  color: #888;
+}
+

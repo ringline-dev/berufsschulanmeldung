@@ -1,0 +1,95 @@
+#overlay  {
+    position: fixed;
+    visibility: hidden;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .5);
+}
+
+#overlay.active{
+    visibility: visible;
+    z-index: 100;
+}
+
+.popup{
+    background-color: white;
+    width: 350px;
+    min-height: 400px;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%) scale(0);
+    padding: 30px 10px;
+    border-radius: 10px;
+    position: fixed;
+    box-shadow:  10px 10px 30px #1e1e1e;
+    transition: 150ms ease-in-out;
+    font-size: 28px;
+    z-index: 20;
+}
+
+.close-btn{
+    position: absolute;
+    top: 0px;
+    right: 20px;
+    cursor:pointer;
+}
+
+
+#userName{
+    text-align: center;
+    font-weight: bolder;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.popup.active {
+    transform: translate(-50%,-50%) scale(1);
+    z-index: 200;
+}
+
+.popup h2{
+    font-size: 1.1em;
+    margin: 5px 0;
+}
+
+.popup label {
+    font-size: 0.6em;
+}
+
+.popup select{
+    display: block;
+    font-family: 'Open Sans', sans-serif;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    width: 200px;
+}
+
+.popup input[type=text], .popup input[type=password]{
+    border: 1px inset #1e1e1e;
+    padding: 5px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.6em;
+    display: block;
+    width: 200px;
+}
+
+
+.popup input[type=submit]{
+    margin-top: 20px;
+    padding: 0.2em 1em;
+    font-size: 0.7em;
+}
+
+
+.popup input[type=submit]:disabled{
+    background-color: #bbb
+}
+
+.popup input:focus{
+    outline: none;
+}
