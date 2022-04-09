@@ -188,27 +188,29 @@
 
            if($result_mail->num_rows > 0) {
                 $row = $result_mail->fetch_assoc();
-                $nachricht = $row['mail_nachricht'];
-                $nachricht = wordwrap($nachricht, 70, "\r\n");
-                $mail = new PHPMailer(TRUE);
-                $mail->CharSet = "UTF-8"; 
-                $mail->setFrom($row['mail_address'], $row['mail_from']);
-                $mail->addAddress($row['mail_address'], $row['mail_name']);
-                $mail->Subject = $row['mail_subject'];
-                $mail->Body = $nachricht;
+                if(!empty($row['mail_host'])){
+                    $nachricht = $row['mail_nachricht'];
+                    $nachricht = wordwrap($nachricht, 70, "\r\n");
+                    $mail = new PHPMailer(TRUE);
+                    $mail->CharSet = "UTF-8"; 
+                    $mail->setFrom($row['mail_address'], $row['mail_from']);
+                    $mail->addAddress($row['mail_address'], $row['mail_name']);
+                    $mail->Subject = $row['mail_subject'];
+                    $mail->Body = $nachricht;
 
-                $mail->isSMTP();
-                $mail->IsHTML(true);
-                $mail->Host = $row['mail_host'];
-                $mail->SMTPAuth = TRUE;
-                $mail->SMTPSecure = 'ssl';
-                $mail->Username = $row['mail_username'];
-                $mail->Password = $row['mail_password'];
-                $mail->Port = $row['mail_port'];
+                    $mail->isSMTP();
+                    $mail->IsHTML(true);
+                    $mail->Host = $row['mail_host'];
+                    $mail->SMTPAuth = TRUE;
+                    $mail->SMTPSecure = 'ssl';
+                    $mail->Username = $row['mail_username'];
+                    $mail->Password = $row['mail_password'];
+                    $mail->Port = $row['mail_port'];
 
-                if(!$mail->send()) {
-                    echo 'Message could not be sent.';
-                    echo 'Mailer Error: ' . $mail->ErrorInfo;
+                    if(!$mail->send()) {
+                        echo 'Message could not be sent.';
+                        echo 'Mailer Error: ' . $mail->ErrorInfo;
+                    }
                 }
            }
 

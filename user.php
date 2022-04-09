@@ -58,7 +58,7 @@
     <div id="overlay"></div>
     <div class="wrapper">
         <nav class="admin">
-            <div class="logo"><img src="img/jpp-logo_cut.jpg"/></div>
+            <div class="logo"><img src="img/logo_cut.png"/></div>
             <form action="admin.php">
                 <button type="submit" id="back">&#9666; Zurück</button>
             </form>

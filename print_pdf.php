@@ -57,6 +57,7 @@ $html = "
             </style>
         </head>
     <body>
+        <img src='img/logo.jpg' width='150' />
         <h1>" . $_SESSION['pdf_header'] . "</h1>
         <h5>Formular maschinell erstellt am " . $date . " Uhr.</h5>
 

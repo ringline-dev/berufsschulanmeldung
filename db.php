@@ -11,7 +11,7 @@ class DataModel{
     }
 
     public function getConnection(){
-        include(db.inc);
+        include("db.inc");
         $con = new mysqli($srv, $usr, $pwd, $db);
         if (mysqli_connect_errno()) {
             trigger_error("Problem with connecting to database.");

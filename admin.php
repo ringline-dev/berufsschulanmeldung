@@ -27,15 +27,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KBS online Administration</title>
+    <title>BS online Administration</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body >
     <div class="wrapper" >
         <nav class="admin" >
-            <!-- <div class="logo"><img src="img/logo-ksn_cut.png"/></div> -->
-            <div class="logo"><img src="img/jpp-logo_cut.jpg" /></div>
+            <div class="logo"><img src="img/logo_cut.png" /></div>
             <button type="submit" id="downloadButton" name="download" form='table'>Ausgewählte herunterladen</button>
             <button type="submit" id="deleteButton" name="delete" form="table">Ausgewählte löschen</button>
             <form id="userButton" action="user.php" <?php if($_SESSION['userType'] != "admin") echo "style='display: none;'" ?>>
