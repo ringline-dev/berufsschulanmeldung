@@ -1,6 +1,6 @@
 <?php
     session_start();
-    //ini_set('display_errors', '1');
+    ini_set('display_errors', '1');
 
     function ageCalculator($date) {  
         date_default_timezone_set("Europe/Berlin");  
@@ -15,6 +15,33 @@
     use PHPMailer\PHPMailer\Exception;
     
     require_once("db.php");
+    
+    $con = new DataModel();
+
+    //Customizing
+    $query_custom = 'SELECT form_title, datenschutz, pdf_header, pdf_footer FROM custom;';
+    $result = $con->select($query_custom);
+    if($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $title = $row['form_title'];
+        $datenschutz_link = $row['datenschutz'];
+        $pdf_header = $row['pdf_header'];
+        $pdf_footer = $row['pdf_footer'];
+    } else{ //default
+        $title = "Anmeldeformular Berufsschule";
+        $datenschutz_link = "https://" . $_SERVER['HTTP_HOST'];
+        $pdf_header = "Anmeldung Auszubildende(r)";
+        $pdf_footer = "Bitte unterschreiben Sie dieses maschinell erstellte Dokument und senden Sie es per E-Mail oder postalisch an die Adresse der zuständigen Schule.";
+    }
+
+    $query_berufe = 'SELECT id_ausbildungsberufe, beruf FROM ausbildungsberufe;';
+    $result = $con->select($query_berufe);
+    if($result->num_rows > 0) {
+        while($row = mysqli_fetch_assoc($result))
+        {
+            $berufe[] = $row;
+        }
+    }
 
     $nachnameAzubi = $vornameAzubi = $geburtsnameAzubi = $geburtsdatumAzubi = $geschlechtAzubi = $geburtsortAzubi = $geburtslandAzubi = $strasseAzubi = $hausnrAzubi = $plzAzubi = $ortAzubi = $ortsteilAzubi = $telefonAzubi = $mobilAzubi = $emailAzubi = $spracheAzubi = $nationalitaetAzubi = $konfessionAzubi = $vorbildungAzubi = $nachnameErz = $vornameErz = $gruppeErz = $emailErz = $strasseErz = $hausnrErz = $plzErz = $ortErz = $telefonErz = $mobilErz = $ausbildungsberuf = $betrieb = $strasseBetrieb = $hausnrBetrieb = $plzBetrieb = $ortBetrieb = $telefonBetrieb = $telefaxBetrieb = $emailBetrieb = $ansprechpartner = $ausbildungsbeginn = $ausbildungsende = $datenschutz = "";
     $age = 18;
@@ -90,14 +117,15 @@
         if(empty($errors)){
             $datum = date('Y-m-d');
 
-            $con = new DataModel();
-
             $query = 'SELECT beruf FROM ausbildungsberufe WHERE id_ausbildungsberufe = ?';
             $paramType = 's';
             $paramValue = array($ausbildungsberuf);
             $result = $con->select($query, $paramType, $paramValue);
 
-            $beruf = $result[0]['beruf'];
+            if($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                $beruf = $row['beruf'];
+            }
 
             $anzahlSpalten = 44;
 
@@ -108,6 +136,8 @@
             $result = $con->insert($query, $paramType, $paramValue);
 
            //Übergabe an print_pdf.php
+           $_SESSION['pdf_header'] = $pdf_header;
+           $_SESSION['pdf_footer'] = $pdf_footer;
            $_SESSION['nachnameAzubi'] = $nachnameAzubi;
            $_SESSION['vornameAzubi'] = $vornameAzubi;
            $_SESSION['geburtsnameAzubi'] = $geburtsnameAzubi;
@@ -153,28 +183,34 @@
 
            $nachnameAzubi = $vornameAzubi = $geburtsnameAzubi = $geburtsdatumAzubi = $geschlechtAzubi = $geburtsortAzubi = $geburtslandAzubi = $strasseAzubi = $hausnrAzubi = $plzAzubi = $ortAzubi = $mobilAzubi = $telefonAzubi = $emailAzubi = $spracheAzubi = $nationalitaetAzubi = $konfessionAzubi = $vorbildungAzubi = $nachnameErz = $vornameErz = $gruppeErz = $emailErz = $strasseErz = $hausnrErz = $plzErz = $ortErz = $ortsteilAzubi = $telefonErz = $mobilErz = $ausbildungsberuf = $betrieb = $strasseBetrieb = $hausnrBetrieb = $plzBetrieb = $ortBetrieb = $telefonBetrieb = $telefaxBetrieb = $emailBetrieb = $ansprechpartner = $ausbildungsbeginn = $ausbildungsende = $bemerkung = $datenschutz = "";
 
-           $nachricht = "Im Anmeldeportal KBS Schüleranmeldung online wurde eine Anmeldung erfasst.\r\n\r\n" . 
-           "Besuchen Sie https://jpp-schule.de/kbs_anmeldung/login.php um sich die aktuell vorliegenden Anmeldungen anzuschauen.\r\n\r\n";
+           $query_mail = 'SELECT mail_nachricht, mail_address, mail_from, mail_name, mail_subject, mail_host, mail_username,  mail_password, mail_port FROM custom';
+           $result_mail = $con->select($query_mail);
 
-            $nachricht = wordwrap($nachricht, 70, "\r\n");
+           if($result_mail->num_rows > 0) {
+                $row = $result_mail->fetch_assoc();
+                $nachricht = $row['mail_nachricht'];
+                $nachricht = wordwrap($nachricht, 70, "\r\n");
+                $mail = new PHPMailer(TRUE);
+                $mail->CharSet = "UTF-8"; 
+                $mail->setFrom($row['mail_address'], $row['mail_from']);
+                $mail->addAddress($row['mail_address'], $row['mail_name']);
+                $mail->Subject = $row['mail_subject'];
+                $mail->Body = $nachricht;
 
-            $mail = new PHPMailer(TRUE);
-            $mail->CharSet = "UTF-8"; 
+                $mail->isSMTP();
+                $mail->IsHTML(true);
+                $mail->Host = $row['mail_host'];
+                $mail->SMTPAuth = TRUE;
+                $mail->SMTPSecure = 'ssl';
+                $mail->Username = $row['mail_username'];
+                $mail->Password = $row['mail_password'];
+                $mail->Port = $row['mail_port'];
 
-            $mail->setFrom('info@jpp-schule.de', 'JPPS Anmeldeportal KBS online');
-            $mail->addAddress('info@jpp-schule.de', 'Johann-Philipp-Palm-Schule');
-            $mail->Subject = 'Neue Anmeldung KBS Schüleranmeldung online';
-            $mail->Body = $nachricht;
-
-            $mail->isSMTP();
-            $mail->Host = 'smtp.strato.de';
-            $mail->SMTPAuth = TRUE;
-            $mail->SMTPSecure = 'ssl';
-            $mail->Username = 'sendenMX01@jpp-schule.de';
-            $mail->Password = 'XGK7CdqDyA!=';
-            $mail->Port = 465;
-
-            $mail->send();
+                if(!$mail->send()) {
+                    echo 'Message could not be sent.';
+                    echo 'Mailer Error: ' . $mail->ErrorInfo;
+                }
+           }
 
             header("Refresh: 1; url=print_pdf.php");
             echo "<div class='success'>

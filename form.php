@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>JPPS Anmeldeformular Berufsschule</title>
+    <title><?=$title?></title>
     <script src="modernizr-inputs.js"></script>
     <script src="jquery-datepicker/external/jquery/jquery.js"></script>
     <script src="jquery-datepicker/jquery-ui.min.js"></script>
@@ -14,7 +14,7 @@
 <body>
     <header>
         <nav>
-            <div class="logo"><img src="img/jpp-logo.png" width="400"/></div>
+            <div class="logo"><img src="img/logo.png" width="400"/></div>
             <a href="login.php" id="admin-button">Zum Administrations-Bereich</a>
         </nav>
     </header>
@@ -782,15 +782,17 @@
                     <div class="form-col">
                         <label for="selectAusbildungsberuf">*Ausbildungsberuf</label>
                         <select name="selectAusbildungsberuf" id="selectAusbildungsberuf" required>
-                            <option value="" selected disabled hidden> 
-                                Bitte wählen:
-                            </option>
-                            <option value="78120" <?php if($ausbildungsberuf == '78120') echo 'selected';?>>Industriekaufmann/Industriekauffrau</option>
-                            <option value="68122" <?php if($ausbildungsberuf == '68122') echo 'selected';?>>Kaufmann/-frau im Einzelhandel</option>
-                            <option value="68206" <?php if($ausbildungsberuf == '68206') echo 'selected';?>>Verkäufer/in</option>
-                            <option value="71402" <?php if($ausbildungsberuf == '71402') echo 'selected';?>>Kaufmann/-frau für Büromanagement</option>
-                            <option value="74102" <?php if($ausbildungsberuf == '74102') echo 'selected';?>>Fachkraft für Lagerlogistik</option>
-                            <option value="74101" <?php if($ausbildungsberuf == '74101') echo 'selected';?>>Fachlagerist/in</option>
+                        <?php 
+                        if(empty($berufe)){
+                            echo '<option value = "Fehler" selected>Fehler! Beruf bitte in Bemerkung angeben!</option>';
+                        } else {
+                            echo '<option value="" selected disabled hidden>Bitte wählen:</option>';
+                            foreach($berufe as $b){
+                                echo '<option value="' . $b["id_ausbildungsberufe"] . '"';
+                                if($ausbildungsberuf == $b['id_ausbildungsberufe']) echo 'selected';
+                                echo '>' . $b["beruf"] . '</option>';
+                            }               
+                        }?>
                         </select>
                     </div>
                     <div class="form-col">
@@ -839,8 +841,8 @@
                         <input type="text" placeholder="E-Mail" name="tfEmailBetrieb" id="tfEmailBetrieb" value="<?php if (isset($emailBetrieb)) echo $emailBetrieb;?>" required>
                     </div>
                     <div class="form-col">
-                        <label for="tfAnsprechpartner">*Ansprechpartner/Durchwahl</label>
-                        <input type="text" placeholder="Ansprechpartner/Durchwahl" name="tfAnsprechpartner" id="tfAnsprechpartner" value="<?php if (isset($ansprechpartner)) echo $ansprechpartner;?>" required>
+                        <label for="tfAnsprechpartner">*Ansprechpartner/Durchwahl/E-Mail</label>
+                        <input type="text" placeholder="Ansprechpartner/Durchwahl/E-Mail" name="tfAnsprechpartner" id="tfAnsprechpartner" value="<?php if (isset($ansprechpartner)) echo $ansprechpartner;?>" required>
                     </div>
                 </div>
 
@@ -864,7 +866,7 @@
             </fieldset>
             <div class="datenschutz">
                 <div class="error"><?php if(isset($errors["datenschutz"])) echo $errors["datenschutz"]; ?></div>
-                <label><input type="checkbox" name="datenschutz" value="yes"> Ich stimme der <a href="https://jpp-schule.de/de/datenschutz" target="_blank" rel="noopener">Datenschutzerklärung</a> zu.</label>
+                <label><input type="checkbox" name="datenschutz" value="yes"> Ich stimme der <a href="<?=$datenschutz_link?>" target="_blank" rel="noopener">Datenschutzerklärung</a> zu.</label>
             </div>
             <div class="submit"> 
                 <input type="submit" name="submit" id="submit" value="Schüler anmelden">

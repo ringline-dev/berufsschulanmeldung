@@ -57,7 +57,7 @@ $html = "
             </style>
         </head>
     <body>
-        <h1>Anmeldung Auszubildende(r) an der Johann-Philipp-Palm-Schule Schorndorf</h1>
+        <h1>" . $_SESSION['pdf_header'] . "</h1>
         <h5>Formular maschinell erstellt am " . $date . " Uhr.</h5>
 
         <h2>Auszubildende(r)</h2>
@@ -218,15 +218,11 @@ $html .= "
             <td>Bemerkung:</td>
             <td class='bemerkung'>" . $_SESSION['bemerkung'] . "</td>
         </tr>
-    </table>
-    <p>Bitte unterschreiben Sie dieses maschinell erstellte Dokument und senden Sie es per E-Mail an info@jpp-schule.de oder postalisch an die Adresse der Johann-Philipp-Palm-Schule Schorndorf, Grabenstr. 10, 73614 Schorndorf.
-    </p>
-    <p class='bottom'>
-        <span>Unterschrift: _____________________________________ </span>
-        <span>Firmenstempel: _____________________________________ </span>
-    </p>
+    </table>"
+    
+    . $_SESSION['pdf_footer'] . 
 
-    </body></html>";
+    "</body></html>";
 
     $dompdf->loadHtml($html);
     $dompdf->setPaper('A4', 'portrait');
