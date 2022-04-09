@@ -4,16 +4,6 @@
 
 class DataModel{
 
-    const SERVERNAME = "db4451.mydbserver.com";
-    const USERNAME = "p517531";
-    const PASSWORD = "2r+0,ouasmRtmp";
-    const DBNAME = "usr_p517531_2";
-
-    //const SERVERNAME = "localhost";
-    //const USERNAME = "root";
-    //const PASSWORD = "";
-    //const DBNAME = "fitnessstudio";
-
     private $con;
 
     function __construct(){
@@ -21,7 +11,8 @@ class DataModel{
     }
 
     public function getConnection(){
-        $con = new mysqli(self::SERVERNAME, self::USERNAME, self::PASSWORD, self::DBNAME);
+        include(db.inc);
+        $con = new mysqli($srv, $usr, $pwd, $db);
         if (mysqli_connect_errno()) {
             trigger_error("Problem with connecting to database.");
         }
