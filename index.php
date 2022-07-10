@@ -9,6 +9,14 @@
         return $actualDate->diff($birthDate)->y;
     } 
 
+    function init() {
+        $nachnameAzubi = $vornameAzubi = $geburtsnameAzubi = $geburtsdatumAzubi = $geschlechtAzubi = $geburtsortAzubi = $geburtslandAzubi = $strasseAzubi = $hausnrAzubi = $plzAzubi = $ortAzubi = $ortsteilAzubi = $telefonAzubi = $mobilAzubi = $emailAzubi = $spracheAzubi = $nationalitaetAzubi = $konfessionAzubi = $vorbildungAzubi = $abgebendeSchule = $nachnameErz = $vornameErz = $gruppeErz = $emailErz = $strasseErz = $hausnrErz = $plzErz = $ortErz = $telefonErz = $mobilErz = $ausbildungsberuf = $betrieb = $strasseBetrieb = $hausnrBetrieb = $plzBetrieb = $ortBetrieb = $telefonBetrieb = $telefaxBetrieb = $emailBetrieb = $ansprechpartner = $ausbildungsbeginn = $ausbildungsende = $datenschutz = "";
+        $age = 18;
+        $beruf = "";
+        $schulnummer = "";
+        $errors = array();
+    }
+
     require 'vendor/autoload.php';
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\SMTP;
@@ -43,10 +51,10 @@
         }
     }
 
-    $nachnameAzubi = $vornameAzubi = $geburtsnameAzubi = $geburtsdatumAzubi = $geschlechtAzubi = $geburtsortAzubi = $geburtslandAzubi = $strasseAzubi = $hausnrAzubi = $plzAzubi = $ortAzubi = $ortsteilAzubi = $telefonAzubi = $mobilAzubi = $emailAzubi = $spracheAzubi = $nationalitaetAzubi = $konfessionAzubi = $vorbildungAzubi = $nachnameErz = $vornameErz = $gruppeErz = $emailErz = $strasseErz = $hausnrErz = $plzErz = $ortErz = $telefonErz = $mobilErz = $ausbildungsberuf = $betrieb = $strasseBetrieb = $hausnrBetrieb = $plzBetrieb = $ortBetrieb = $telefonBetrieb = $telefaxBetrieb = $emailBetrieb = $ansprechpartner = $ausbildungsbeginn = $ausbildungsende = $datenschutz = "";
+    $nachnameAzubi = $vornameAzubi = $geburtsnameAzubi = $geburtsdatumAzubi = $geschlechtAzubi = $geburtsortAzubi = $geburtslandAzubi = $strasseAzubi = $hausnrAzubi = $plzAzubi = $ortAzubi = $ortsteilAzubi = $telefonAzubi = $mobilAzubi = $emailAzubi = $spracheAzubi = $nationalitaetAzubi = $konfessionAzubi = $vorbildungAzubi = $abgebendeSchule = $nachnameErz = $vornameErz = $gruppeErz = $emailErz = $strasseErz = $hausnrErz = $plzErz = $ortErz = $telefonErz = $mobilErz = $ausbildungsberuf = $betrieb = $strasseBetrieb = $hausnrBetrieb = $plzBetrieb = $ortBetrieb = $telefonBetrieb = $telefaxBetrieb = $emailBetrieb = $ansprechpartner = $ausbildungsbeginn = $ausbildungsende = $datenschutz = "";
     $age = 18;
     $beruf = "";
-
+    $schulnummer = "";
     $errors = array();
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST'){
@@ -70,6 +78,8 @@
        $nationalitaetAzubi = isset($_POST['selectNationalitaet']) ? $_POST['selectNationalitaet'] : "";
        $konfessionAzubi = isset($_POST['selectKonfession']) ? $_POST['selectKonfession'] : "";
        $vorbildungAzubi = isset($_POST['selectVorbildung']) ? $_POST['selectVorbildung'] : "";
+       $abgebendeSchule = isset($_POST['tfAbgebendeSchule']) ? $_POST['tfAbgebendeSchule'] : "";
+       $schulnummer = isset($_POST['hfSchulnummer']) ? $_POST['hfSchulnummer'] : "";
 
        $nachnameErz = isset($_POST['tfNachnameErz']) ? $_POST['tfNachnameErz'] : ""; 
        $vornameErz = isset($_POST['tfVornameErz']) ? $_POST['tfVornameErz'] : ""; 
@@ -127,11 +137,11 @@
                 $beruf = $row['beruf'];
             }
 
-            $anzahlSpalten = 44;
+            $anzahlSpalten = 45;
 
-            $query = "INSERT INTO asv (`Name`, Vorname, Geburtsname, Geburtstag, Geburtsort, Geburtsland, Geschlecht, Strasse, HausNr, PLZ, Ort, Teilort, `Telefon 1`, Handy1, email1, Muttersprache, Land, Religion, Vorbildung, Erz1Name, Erz1Vorname, Erz1Art, Erz1Email, Erz1Strasse, Erz1HausNr, Erz1PLZ, Erz1Ort, Erz1Telefon, Erz1Handy, Ausbild_beruf_id, Betrieb, Ausbildungsbetrieb, strasse_btr, hausnr_btr, plz_btr, ort_btr, telefon_btr, telefax_btr, email_btr, ansprechpartner, beginn, ende, bemerkung, datum) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
-            $paramType = "ssssssssssssssssssssssssssssssssssssssssssss";
-            $paramValue = array($nachnameAzubi, $vornameAzubi, $geburtsnameAzubi, $geburtsdatumAzubi, $geburtsortAzubi, $geburtslandAzubi, $geschlechtAzubi, $strasseAzubi, $hausnrAzubi, $plzAzubi, $ortAzubi, $ortsteilAzubi, $telefonAzubi, $mobilAzubi, $emailAzubi, $spracheAzubi, $nationalitaetAzubi, $konfessionAzubi, $vorbildungAzubi, $nachnameErz, $vornameErz, $gruppeErz, $emailErz, $strasseErz, $hausnrErz, $plzErz, $ortErz, $telefonErz, $mobilErz, $ausbildungsberuf, $betrieb, $ausbildungsbetrieb, $strasseBetrieb, $hausnrBetrieb, $plzBetrieb, $ortBetrieb, $telefonBetrieb, $telefaxBetrieb, $emailBetrieb, $ansprechpartner, $ausbildungsbeginn, $ausbildungsende, $bemerkung, $datum);
+            $query = "INSERT INTO asv (`Name`, Vorname, Geburtsname, Geburtstag, Geburtsort, Geburtsland, Geschlecht, Strasse, HausNr, PLZ, Ort, Teilort, `Telefon 1`, Handy1, email1, Muttersprache, Land, Religion, Vorbildung, Erz1Name, Erz1Vorname, Erz1Art, Erz1Email, Erz1Strasse, Erz1HausNr, Erz1PLZ, Erz1Ort, Erz1Telefon, Erz1Handy, AbgebendeSchule, Ausbild_beruf_id, Betrieb, Ausbildungsbetrieb, strasse_btr, hausnr_btr, plz_btr, ort_btr, telefon_btr, telefax_btr, email_btr, ansprechpartner, beginn, ende, bemerkung, datum) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+            $paramType = "sssssssssssssssssssssssssssssssssssssssssssss";
+            $paramValue = array($nachnameAzubi, $vornameAzubi, $geburtsnameAzubi, $geburtsdatumAzubi, $geburtsortAzubi, $geburtslandAzubi, $geschlechtAzubi, $strasseAzubi, $hausnrAzubi, $plzAzubi, $ortAzubi, $ortsteilAzubi, $telefonAzubi, $mobilAzubi, $emailAzubi, $spracheAzubi, $nationalitaetAzubi, $konfessionAzubi, $vorbildungAzubi, $nachnameErz, $vornameErz, $gruppeErz, $emailErz, $strasseErz, $hausnrErz, $plzErz, $ortErz, $telefonErz, $mobilErz, $schulnummer, $ausbildungsberuf, $betrieb, $ausbildungsbetrieb, $strasseBetrieb, $hausnrBetrieb, $plzBetrieb, $ortBetrieb, $telefonBetrieb, $telefaxBetrieb, $emailBetrieb, $ansprechpartner, $ausbildungsbeginn, $ausbildungsende, $bemerkung, $datum);
 
             $result = $con->insert($query, $paramType, $paramValue);
 
@@ -181,7 +191,7 @@
            $_SESSION['ausbildungsende'] = $ausbildungsende;
            $_SESSION['bemerkung'] = $bemerkung;
 
-           $nachnameAzubi = $vornameAzubi = $geburtsnameAzubi = $geburtsdatumAzubi = $geschlechtAzubi = $geburtsortAzubi = $geburtslandAzubi = $strasseAzubi = $hausnrAzubi = $plzAzubi = $ortAzubi = $mobilAzubi = $telefonAzubi = $emailAzubi = $spracheAzubi = $nationalitaetAzubi = $konfessionAzubi = $vorbildungAzubi = $nachnameErz = $vornameErz = $gruppeErz = $emailErz = $strasseErz = $hausnrErz = $plzErz = $ortErz = $ortsteilAzubi = $telefonErz = $mobilErz = $ausbildungsberuf = $betrieb = $strasseBetrieb = $hausnrBetrieb = $plzBetrieb = $ortBetrieb = $telefonBetrieb = $telefaxBetrieb = $emailBetrieb = $ansprechpartner = $ausbildungsbeginn = $ausbildungsende = $bemerkung = $datenschutz = "";
+           init();
 
            $query_mail = 'SELECT mail_nachricht, mail_address, mail_from, mail_name, mail_subject, mail_host, mail_username,  mail_password, mail_port FROM custom';
            $result_mail = $con->select($query_mail);

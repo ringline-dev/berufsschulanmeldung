@@ -113,6 +113,33 @@ textarea{
   background-color: #eee;
 }
 
+.results{
+  cursor: pointer;
+  padding: 4px 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: 0.2s;
+}
+
+.results:nth-child(n+2){
+  border-top: 1px solid #888;
+}
+
+.results:hover{
+  background-color:#eee;
+}
+
+#searchResult{
+  display: none;
+  z-index: 100;
+  position: absolute;
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  padding: 0.3em;
+  margin-top: -10px;
+}
+
 #admin-button{
   border: 1px solid #444;
   border-radius: 4px;
@@ -322,3 +349,17 @@ nav.admin .logo>img{
   color: #888;
 }
 
+#overlay  {
+  position: fixed;
+  visibility: hidden;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+#overlay.active{
+  visibility: visible;
+  z-index: 50;
+}

@@ -12,6 +12,7 @@
 </head>
 
 <body>
+<div id="overlay"></div>
     <header>
         <nav>
             <div class="logo"><img src="img/logo.png" width="400"/></div>
@@ -705,6 +706,14 @@
                         </select>
                     </div>
                 </div>
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="tfAbgebendeSchule">*Letzte besuchte Schule</label>
+                        <input type="text" placeholder="Suche..." name="tfAbgebendeSchule" id="tfAbgebendeSchule" value="<?php if (isset($abgebendeSchule)) echo $abgebendeSchule; ?>">
+                        <input type="hidden" name="hfSchulnummer" id="hfSchulnummer" value="<?php if (isset($schulnummer)) echo $schulnummer; ?>">
+                        <div id="searchResult"></div>
+                    </div>
+                </div>
             </fieldset>
 
             <fieldset>
@@ -883,12 +892,50 @@
             changeYear: true,
             //defaultDate: "-18y",
             firstDay: 1,
-            onSelect: function (selectedDate) {
+            onSelect: function(selectedDate) {
                 $('#ui-datepicker-div table td a').attr('href', 'javascript:void(0);');
                 $(this).blur();
                 }
             });
         }
+        
+        let overlay = document.querySelector("#overlay");
+        let livesearch = document.querySelector("#tfAbgebendeSchule");
+        let searchResult = document.querySelector("#searchResult");
+        let schulnummer = document.querySelector("#hfSchulnummer");
+        let results;
+
+        function showResult(){
+            searchResult.style.display = "block";
+            overlay.classList.add('active');
+        }
+
+        function selectResult(e){
+            livesearch.value = e.target.innerText;
+            schulnummer.value = e.target.dataset.schulnummer;
+            searchResult.style.display = "none";
+            overlay.classList.remove('active');
+        }
+
+        function getRequest(e) {
+            let q = e.target.value;
+            let xhttp = new XMLHttpRequest();
+
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    searchResult.innerHTML = this.responseText;
+                    results = document.querySelectorAll(".results");
+                    results.forEach(rs => rs.addEventListener('click', selectResult));
+                }
+            };
+            xhttp.open('GET', 'livesearch.php?q=' + q, true);
+            xhttp.send();
+        }
+
+        livesearch.addEventListener('keyup', getRequest);
+        livesearch.addEventListener('focusin', showResult);
+        overlay.addEventListener('click', selectResult);
+
     </script>
 </body>
 
