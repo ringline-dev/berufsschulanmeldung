@@ -131,6 +131,10 @@ $html .= "</td>
                 <td>Schulische Vorbildung:</td>
                 <td>" . $_SESSION['vorbildungAzubi'] . "</td>
             </tr>
+            <tr>
+                <td>Letzte besuchte Schule:</td>
+                <td>" . $_SESSION['abgebendeSchule'] . "</td>
+            </tr>
         </table>";
 if($_SESSION['nachnameErz']!=""){ 
     $html .= "

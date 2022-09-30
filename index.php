@@ -137,11 +137,11 @@
                 $beruf = $row['beruf'];
             }
 
-            $anzahlSpalten = 45;
+            $anzahlSpalten = 46;
 
-            $query = "INSERT INTO asv (`Name`, Vorname, Geburtsname, Geburtstag, Geburtsort, Geburtsland, Geschlecht, Strasse, HausNr, PLZ, Ort, Teilort, `Telefon 1`, Handy1, email1, Muttersprache, Land, Religion, Vorbildung, Erz1Name, Erz1Vorname, Erz1Art, Erz1Email, Erz1Strasse, Erz1HausNr, Erz1PLZ, Erz1Ort, Erz1Telefon, Erz1Handy, AbgebendeSchule, Ausbild_beruf_id, Betrieb, Ausbildungsbetrieb, strasse_btr, hausnr_btr, plz_btr, ort_btr, telefon_btr, telefax_btr, email_btr, ansprechpartner, beginn, ende, bemerkung, datum) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
-            $paramType = "sssssssssssssssssssssssssssssssssssssssssssss";
-            $paramValue = array($nachnameAzubi, $vornameAzubi, $geburtsnameAzubi, $geburtsdatumAzubi, $geburtsortAzubi, $geburtslandAzubi, $geschlechtAzubi, $strasseAzubi, $hausnrAzubi, $plzAzubi, $ortAzubi, $ortsteilAzubi, $telefonAzubi, $mobilAzubi, $emailAzubi, $spracheAzubi, $nationalitaetAzubi, $konfessionAzubi, $vorbildungAzubi, $nachnameErz, $vornameErz, $gruppeErz, $emailErz, $strasseErz, $hausnrErz, $plzErz, $ortErz, $telefonErz, $mobilErz, $schulnummer, $ausbildungsberuf, $betrieb, $ausbildungsbetrieb, $strasseBetrieb, $hausnrBetrieb, $plzBetrieb, $ortBetrieb, $telefonBetrieb, $telefaxBetrieb, $emailBetrieb, $ansprechpartner, $ausbildungsbeginn, $ausbildungsende, $bemerkung, $datum);
+            $query = "INSERT INTO asv (`Name`, Vorname, Geburtsname, Geburtstag, Geburtsort, Geburtsland, Geschlecht, Strasse, HausNr, PLZ, Ort, Teilort, `Telefon 1`, Handy1, email1, Muttersprache, Land, Religion, Vorbildung, Erz1Name, Erz1Vorname, Erz1Art, Erz1Email, Erz1Strasse, Erz1HausNr, Erz1PLZ, Erz1Ort, Erz1Telefon, Erz1Handy, AbgebendeSchule, schule, Ausbild_beruf_id, Betrieb, Ausbildungsbetrieb, strasse_btr, hausnr_btr, plz_btr, ort_btr, telefon_btr, telefax_btr, email_btr, ansprechpartner, beginn, ende, bemerkung, datum) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+            $paramType = "ssssssssssssssssssssssssssssssssssssssssssssss";
+            $paramValue = array($nachnameAzubi, $vornameAzubi, $geburtsnameAzubi, $geburtsdatumAzubi, $geburtsortAzubi, $geburtslandAzubi, $geschlechtAzubi, $strasseAzubi, $hausnrAzubi, $plzAzubi, $ortAzubi, $ortsteilAzubi, $telefonAzubi, $mobilAzubi, $emailAzubi, $spracheAzubi, $nationalitaetAzubi, $konfessionAzubi, $vorbildungAzubi, $nachnameErz, $vornameErz, $gruppeErz, $emailErz, $strasseErz, $hausnrErz, $plzErz, $ortErz, $telefonErz, $mobilErz, $schulnummer, $abgebendeSchule, $ausbildungsberuf, $betrieb, $ausbildungsbetrieb, $strasseBetrieb, $hausnrBetrieb, $plzBetrieb, $ortBetrieb, $telefonBetrieb, $telefaxBetrieb, $emailBetrieb, $ansprechpartner, $ausbildungsbeginn, $ausbildungsende, $bemerkung, $datum);
 
             $result = $con->insert($query, $paramType, $paramValue);
 
@@ -167,6 +167,7 @@
            $_SESSION['nationalitaetAzubi'] = $nationalitaetAzubi;
            $_SESSION['konfessionAzubi'] = $konfessionAzubi;
            $_SESSION['vorbildungAzubi'] = $vorbildungAzubi;
+           $_SESSION['abgebendeSchule'] = $abgebendeSchule;
            $_SESSION['nachnameErz'] = $nachnameErz;
            $_SESSION['vornameErz'] = $vornameErz;
            $_SESSION['gruppeErz'] = $gruppeErz;
