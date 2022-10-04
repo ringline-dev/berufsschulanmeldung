@@ -1,9 +1,0 @@
-    //const SERVERNAME = "localhost";
-    //const USERNAME = "dbu_49_bsa_user";
-    //const PASSWORD = "Lupo2121";
-    //const DBNAME = "db_49_bsa";
-    
-    //const SERVERNAME = "localhost";
-    //const USERNAME = "root";
-    //const PASSWORD = "";
-    //const DBNAME = "kbs_test";
