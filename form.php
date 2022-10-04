@@ -709,7 +709,7 @@
                 <div class="form-row">
                     <div class="form-col">
                         <label for="tfAbgebendeSchule">*Letzte besuchte Schule</label>
-                        <input type="text" placeholder="Suche..." name="tfAbgebendeSchule" id="tfAbgebendeSchule" value="<?php if (isset($abgebendeSchule)) echo $abgebendeSchule; ?>">
+                        <input type="text" placeholder="Suche..." name="tfAbgebendeSchule" id="tfAbgebendeSchule" value="<?php if (isset($abgebendeSchule)) echo $abgebendeSchule; ?>" required>
                         <input type="hidden" name="hfSchulnummer" id="hfSchulnummer" value="<?php if (isset($schulnummer)) echo $schulnummer; ?>">
                         <div id="searchResult"></div>
                     </div>
